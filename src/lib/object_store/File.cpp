@@ -709,6 +709,11 @@ bool File::lock(bool block /* = true */)
 // Unlock the file
 bool File::unlock()
 {
+	if (isWrite())
+	{
+		flush();
+	}
+
 #ifndef _WIN32
 	struct flock fl;
 	fl.l_type = F_UNLCK;
